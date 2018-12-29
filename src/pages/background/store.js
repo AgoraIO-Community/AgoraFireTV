@@ -2,7 +2,6 @@ import { applyMiddleware, createStore } from 'redux'
 import { wrapStore, alias } from 'react-chrome-redux'
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
-
 import aliases from './aliases'
 import reducer from './reducers'
 
@@ -10,12 +9,7 @@ const logger = createLogger({
   collapsed: true,
 })
 
-const initialState = {
-  lists: {
-    activeId: null,
-    records: [],
-  }
-}
+const initialState = {}
 
 const store = createStore(
   reducer,
@@ -28,7 +22,7 @@ const store = createStore(
 )
 
 wrapStore(store, {
-  portName: 'BOOKMARKSAVER',
+  portName: 'AGORA_FIRE_TV',
 })
 
 export default store

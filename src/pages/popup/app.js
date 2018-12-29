@@ -1,94 +1,46 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { Dropdown, Button } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
-
-import * as listActions from '../../shared/actions/listActions'
-
-import { submitURL } from '../../modules/ajax'
+import * as usersActions from '../../shared/actions/usersActions'
+import * as showsActions from '../../shared/actions/showsActions'
+import Live from "./components/live/Live";
+import './app.css'
+import Feed from "./components/feed/Feed";
+import Slide from "@material-ui/core/Slide";
 
 @connect((store) => {
-  return {
-    lists: store.lists,
-  }
+    return {
+        shows: store.shows,
+    }
 })
 export default class App extends React.Component {
-  componentWillMount() {
-    const { lists, dispatch } = this.props
 
-    if (lists.records.size === undefined) {
-      dispatch(listActions.requestRefresh())
-    }
-  }
+    state = {notificationsEnabled: this.props.shows.notificationsEnabled, showLive: false, selectedShow: {}}
 
-  optionWithDefaultValue(options) {
-    const { lists } = this.props
+    toggleLive = (selectedShow) => {
+        const {showLive} = this.state;
+        this.setState({showLive: !showLive, selectedShow});
+    };
 
-    for (const option of options) {
-      if (option.value === lists.activeId) {
-        return option.value
-      }
+    componentWillMount() {
+        const {dispatch} = this.props;
+        dispatch(usersActions.requestRefresh())
+        dispatch(showsActions.requestRefresh())
     }
 
-    return options[0]
-  }
+    toggleNotifications() {
+        const {notificationsEnabled} = this.props.shows;
+        this.setState({notificationsEnabled: !notificationsEnabled})
+        this.props.dispatch(showsActions.toggleNotification())
+    }
 
-  async submitCurrentURL() {
-    const { dispatch, lists } = this.props
-    const activeListId = lists.activeId
-
-    chrome.tabs.query({
-      active: true,
-      currentWindow: true
-    }, (arrayOfTabs) => {
-      const activeTab = arrayOfTabs[0]
-      const url = activeTab.url
-      const title = activeTab.title
-
-      dispatch(
-        listActions.requestURLSubmit(activeListId, url, title)
-      )
-      window.close()
-    })
-  }
-
-  listChanged(data) {
-    const { dispatch } = this.props
-
-    dispatch(
-      listActions.setActive(data.value)
-    )
-  }
-
-  render() {
-    const { lists } = this.props
-
-    const options = lists.records.map( (record) => {
-      return {
-        key: record.id,
-        text: record.name,
-        value: record.id,
-        icon: record.icon,
-      }
-    })
-
-    return (
-      <div className="ui grid divided container">
-        <div className="ui one wide column">
-          <br/>
-          <Dropdown
-            onChange={(_evt, data) => this.listChanged(data)}
-            selection
-            placeholder='Select List'
-            options={options}
-            defaultValue={this.optionWithDefaultValue(options)}
-          />
-          <div className="ui divider"/>
-          <Button primary onClick={
-            () => this.submitCurrentURL()
-          }>Save</Button>
-        </div>
-      </div>
-    )
-  }
+    render() {
+        const {activeShows} = this.props.shows;
+        const {notificationsEnabled, showLive, selectedShow} = this.state;
+        return (
+            <div className={"scroll feedScroll"}>
+                {showLive ? ( <Slide direction={`${ showLive? 'left': 'right'}`} in={showLive} mountOnEnter unmountOnExit><Live selectedShow={selectedShow} toggleLive={this.toggleLive}/></Slide>) : (<Feed toggleLive={(selectedShow) => {this.toggleLive(selectedShow)}} activeShows={activeShows}/>)}
+            </div>
+        )
+    }
 }

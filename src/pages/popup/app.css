@@ -1,0 +1,18 @@
+.feedScroll::-webkit-scrollbar {
+    width: 0px;
+}
+
+.feedScroll::-webkit-scrollbar-track {
+    background: #ddd;
+}
+
+.feedScroll::-webkit-scrollbar-thumb {
+    background: #666;
+}
+.scroll {
+    height: 280px;
+    width: 350px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    float: left;
+}

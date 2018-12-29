@@ -6,7 +6,7 @@ import {Store} from 'react-chrome-redux'
 import App from './app'
 
 const store = new Store({
-  portName: 'BOOKMARKSAVER',
+  portName: 'AGORA_FIRE_TV',
 })
 
 store.ready().then(() => {
