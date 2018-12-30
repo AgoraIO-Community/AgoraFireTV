@@ -6,7 +6,7 @@ Is a chrome extension that will allow you to watch your favorite shows from the 
 
 ## Project description 
 - [Notifications for live shows](#notifications)
-- [Pcture-in-picture](#picture-in-picture)
+- [Picture-in-picture](#picture-in-picture)
 - [Offline support ](#offline-support)
 - [Get started ](#get-started)
 - [Test extension](#test-extension)
@@ -22,7 +22,7 @@ The broadcasted show can be watched in isolated  window using the Picture-in-Pic
 ## Get started
 
 ```
-    git clone url 
+    git clone https://github.com/AgoraIO-Community/AgoraFireTV 
     cd agorafire-tv/
     npm install 
     npm run build
@@ -69,7 +69,7 @@ agorafire-tv/
 
 ## Sending Feedback
 
-We are always open to [your feedback](https://github.com/facebookincubator/create-react-app/issues).
+We are always open to [your feedback](https://github.com/zmazouzi/agorafireTV).
 
 ![Demo](https://i.imgur.com/4IDBUQq.png "demo")
 
