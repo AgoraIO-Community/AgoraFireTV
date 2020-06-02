@@ -2,7 +2,7 @@ Project AgorafireTV is my entry for [Agora Holiday Hacks 2018!](https://agora-ho
 
 
 ## What is AgorafireTV
-Is a chrome extension that will allow you to watch your favorite shows from the confort of your browser :)
+Is a chrome extension that will allow you to watch your favorite shows from the comfort of your browser :)
 
 ## Project description 
 - [Notifications for live shows](#notifications)
